@@ -1,0 +1,30 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-go@v6
+        with:
+          go-version-file: go.mod # single source of truth for the Go version
+      - run: make lint            # gofmt check + go vet
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-go@v6
+        with:
+          go-version-file: go.mod
+      # Same commands as local dev: compose Postgres (with our custom image),
+      # then migrations + all tests with -race. No .env in CI: Makefile defaults apply.
+      - run: make up
+      - run: make test v=1
+      - if: failure()
+        run: docker compose logs postgres
