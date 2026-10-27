@@ -1,0 +1,18 @@
+{
+  "[go]": {
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": "explicit"
+    }
+  },
+  "gopls": {
+    "build.buildFlags": ["-tags=integration"],
+    "ui.semanticTokens": true,
+    "ui.diagnostic.staticcheck": true,
+    "ui.inlayhint.hints": {
+      "parameterNames": true,
+      "assignVariableTypes": true
+    }
+  },
+  "go.testFlags": ["-race", "-v"]
+}

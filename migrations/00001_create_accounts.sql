@@ -1,0 +1,9 @@
+-- +goose Up
+CREATE TABLE accounts (
+    id         BIGINT      GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    name       TEXT        NOT NULL,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+-- +goose Down
+DROP TABLE accounts;

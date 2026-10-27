@@ -1,0 +1,22 @@
+services:
+  postgres:
+    build: ./docker/postgres
+    environment:
+      # Local dev credentials only. Never reuse outside docker compose.
+      POSTGRES_USER: ledger
+      POSTGRES_PASSWORD: ledger
+      POSTGRES_DB: ledger
+    ports:
+      - "5432:5432"
+    volumes:
+      # Postgres 18 images store data under /var/lib/postgresql/<major>/docker.
+      - pgdata:/var/lib/postgresql
+    healthcheck:
+      # Others (migrations, tests) wait for "healthy", not just "started".
+      test: ["CMD-SHELL", "pg_isready -U ledger -d ledger"]
+      interval: 2s
+      timeout: 3s
+      retries: 15
+
+volumes:
+  pgdata:
