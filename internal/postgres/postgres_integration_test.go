@@ -51,7 +51,7 @@ func TestDatabase(t *testing.T) {
 		}
 
 		if table == nil {
-			t.Fatal("WTF QUE FUE NO HAY LA TABLA")
+			t.Fatal("WTF THERE IS NO TABLD")
 		}
 
 	})

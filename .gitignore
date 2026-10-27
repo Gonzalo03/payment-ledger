@@ -1,2 +1,4 @@
 payments-ledger-ejemplos/
 .env
+bin/
+*.out
